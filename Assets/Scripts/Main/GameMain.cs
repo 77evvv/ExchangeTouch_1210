@@ -20,7 +20,7 @@ public class GameMain : MonoBehaviour
     {
         
     }
-
+    //加分機制 NICE/PERFECT/BAD/MISS
     public void showScore(int aa)
     {
         switch (aa)
