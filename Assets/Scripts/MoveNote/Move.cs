@@ -9,6 +9,7 @@ namespace PathCreation.Examples
 {
     public class Move : MonoBehaviour
     {
+        public GameObject partical;
         private Animator myBoomAnimator;
 
         public SpriteRenderer sr;
@@ -98,6 +99,13 @@ namespace PathCreation.Examples
             //Debug.Log(GM.name);
         }
 
+        //1222特效Boom_show
+        public void 顯示特效()
+        {
+            partical.SetActive(true);
+            //讓特效離開音符
+            partical.transform.parent = null;
+        }
         // Update is called once per frame
         void Update()
         {
@@ -239,7 +247,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(0);
                     SpriteHitPic.spriteName = "Bad";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                 }
 
@@ -249,7 +257,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(1);
                     SpriteHitPic.spriteName = "Nice";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                     Debug.Log("Yes1");
                 }
@@ -261,7 +269,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(2);
                     SpriteHitPic.spriteName = "Perfect";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                     Debug.Log("Yes2");
                 }
@@ -275,7 +283,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(2);
                     SpriteHitPic.spriteName = "Perfect";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                     Debug.Log("Yes3");
                 }
@@ -286,7 +294,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(1);
                     SpriteHitPic.spriteName = "Nice";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                     Debug.Log("Yes4");
                 }
@@ -298,7 +306,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(0);
                     SpriteHitPic.spriteName = "Bad";
                     替身.myNote.RemoveAt(0);
-                    DestroySelf();
+                    顯示特效();
                     Destroy(gameObject);
                     Debug.Log("Yes5");
                 }
@@ -346,9 +354,6 @@ namespace PathCreation.Examples
                 //Debug.Log("Edge");
             }
         } 
-        public void DestroySelf()
-        {
-            Destroy(this.gameObject);
-        }
+        
     }
 }

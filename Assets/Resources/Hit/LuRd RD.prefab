@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2b3f93a11997a48aefeb66d95dad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partical: {fileID: 3455283116201734407}
   sr: {fileID: 0}
   "\u66FF\u8EAB": {fileID: 0}
   HitObject: {fileID: 0}
@@ -188,15 +189,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 253949372942817749, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1591
+      value: 1.0873866
       objectReference: {fileID: 0}
     - target: {fileID: 253949372942817749, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1591
+      value: 1.0873866
       objectReference: {fileID: 0}
     - target: {fileID: 253949372942817749, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1591
+      value: 1.0873866
       objectReference: {fileID: 0}
     - target: {fileID: 253949372942817749, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,10 +241,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 253949372942817750, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253949372942817751, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
+--- !u!1 &3455283116201734407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 253949372942817736, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
+  m_PrefabInstance: {fileID: 3203629661115082959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3455283116201734426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 253949372942817749, guid: 2eeb75ce812c192489dd2c60c3438bd1, type: 3}
