@@ -122,7 +122,7 @@ public class touch : MonoBehaviour
         if (other.tag == "Arrow")
         {
             member++;
-            memberText.text = member.ToString();
+            //memberText.text = member.ToString();
             //Debug.Log("有碰到");
            
         }
