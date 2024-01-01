@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partical: {fileID: 3455283116201734407}
+  EwanState: {fileID: 0}
   sr: {fileID: 0}
   "\u66FF\u8EAB": {fileID: 0}
   HitObject: {fileID: 0}

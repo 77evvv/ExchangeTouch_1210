@@ -50,7 +50,7 @@ public class touchLocation
             {
                 右2清單.Add(現在數值);
             }
-            
+            //順序很重要
             音軌範圍.Add(左1清單);//0
             音軌範圍.Add(左2清單);//1
             音軌範圍.Add(右1清單);//2

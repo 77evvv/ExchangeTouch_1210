@@ -12,6 +12,10 @@ using UnityEngine.EventSystems;
         public List<touchLocation> touches = new List<touchLocation>();
         public List<func> noteTrack = new List<func>();
         
+        private const float swipeThreshold = 150f; // 滑动阈值
+        private Vector2 initialTouchPos; // 初始触摸位置
+        
+        
         //沒有使用了 public LayerMask 圖層;
 
         public void Start()
@@ -24,29 +28,44 @@ using UnityEngine.EventSystems;
             for (int i = 0; i < Input.touchCount; i++)
             {
                 Touch t = Input.GetTouch(i);
-                if (t.phase == TouchPhase.Began )
+                if (t.phase == TouchPhase.Began)
                 {
                     //Debug.Log("touch began");
-                    touches.Add(new touchLocation(t.fingerId,tempCircle,noteTrack));
+                    touches.Add(new touchLocation(t.fingerId, tempCircle, noteTrack));
                     //touches.Add(new touchLocation(t.fingerId, creatCircle(t)));
                 }
                 else if (t.phase == TouchPhase.Ended)
                 {
                     //Debug.Log("touch end");
-                    
+
                     touchLocation thisTouch = touches.Find(touchLocation => touchLocation.touchId == t.fingerId);
                     //Destroy(thisTouch.circle);
                     touches.RemoveAt(touches.IndexOf(thisTouch));
                 }
                 else if (t.phase == TouchPhase.Moved)
                 {
-                    Debug.Log("touch moving");
-                    touchLocation thisTouch = touches.Find(touchLocation => touchLocation.touchId == t.fingerId);
-                    //thisTouch.circle.transform.position = getTouchPosition(t.position);
+                    Vector2 currentTouchPos = t.position;
+                    float swipeDistance = currentTouchPos.x - initialTouchPos.x;
+
+                    // 判断左滑或右滑
+                    if (Mathf.Abs(swipeDistance) > swipeThreshold)
+                    {
+                        if (swipeDistance > 0)
+                        {
+                            Debug.Log("Right Swipe");
+                            // 执行右滑操作，例如触发角色状态改变等
+                        }
+                        else
+                        {
+                            Debug.Log("Left Swipe");
+                            // 执行左滑操作，例如触发角色状态改变等
+                        }
+                    }
                 }
+                
             }
         }
-        //抓取處空位置1208
+
         Vector2 getTouchPosition(Vector2 touchPosition)
         {
             return GetComponent<Camera>()

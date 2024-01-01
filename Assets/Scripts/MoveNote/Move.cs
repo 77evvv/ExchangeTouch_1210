@@ -10,7 +10,6 @@ namespace PathCreation.Examples
     public class Move : MonoBehaviour
     {
         public GameObject partical;
-        private Animator myBoomAnimator;
 
         public SpriteRenderer sr;
 
@@ -84,7 +83,7 @@ namespace PathCreation.Examples
         // Start is called before the first frame update
         void Start()
         {
-            myBoomAnimator = GetComponent<Animator>();
+            
             sr = GetComponent<SpriteRenderer>();
             //Debug.Log(軌道.ToString());
             經過時間 = 0;
@@ -315,6 +314,7 @@ namespace PathCreation.Examples
                 if (進度 > 判分範圍[5])
                 {
                     替身.myNote.RemoveAt(0);
+                    SpriteHitPic.spriteName = "Miss";
                     //miss
                 }
             }
