@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,21 +8,34 @@ using UnityEngine.UI;
 public class SpriteHitPic : MonoBehaviour
 {
     [SerializeField]  SpriteAtlas atlas;
-
+    public Image myImage;
     [SerializeField]  public static string spriteName;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        //gameObject.SetActive(false);
-        spriteName = "Start";
        
         
+    }
+
+    void Start()
+    {
+        myImage = GetComponent<Image>();
+        spriteName = "";
     }
 
     // Update is called once per framez
     void Update()
     {
-        gameObject.SetActive(true);
-        GetComponent<Image>().sprite = atlas.GetSprite(spriteName);
+        if (spriteName == "")
+        {
+            myImage.color = Color.clear;
+        }
+        else
+        {
+            myImage.color = Color.white;
+            myImage .sprite = atlas.GetSprite(spriteName);
+        }
+        
     }
 }

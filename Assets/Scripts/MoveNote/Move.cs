@@ -12,6 +12,7 @@ namespace PathCreation.Examples
         public GameObject partical;
 
         public SpriteRenderer sr;
+        public Animator EwanAni;
 
         //創建替身以降低效能
         public func 替身;
@@ -83,7 +84,7 @@ namespace PathCreation.Examples
         // Start is called before the first frame update
         void Start()
         {
-            
+
             sr = GetComponent<SpriteRenderer>();
             //Debug.Log(軌道.ToString());
             經過時間 = 0;
@@ -94,17 +95,45 @@ namespace PathCreation.Examples
             startScale = transform.localScale;
             transform.localScale = startScale / 3f;
             GM = GameObject.FindGameObjectWithTag("GM");
+            EwanAni = GameObject.Find("EwanPlay").GetComponent<Animator>();
 
             //Debug.Log(GM.name);
         }
 
         //1222特效Boom_show
-        public void 顯示特效()
+        public void 顯示特效(int 呼叫動畫)
         {
-            partical.SetActive(true);
-            //讓特效離開音符
-            partical.transform.parent = null;
+            if (呼叫動畫 != 2)
+            {
+                partical.SetActive(true);
+                //讓特效離開音符
+                partical.transform.parent = null;
+            }
+            //0102增加Ewan_Animator
+            AnimatorClipInfo[] ac = EwanAni.GetCurrentAnimatorClipInfo(0);
+            if (ac[0].clip.name == "Ewan_Hit")
+            {
+                
+            }
+            else
+            {
+                switch (呼叫動畫)
+                {
+                    case 0 :
+                        EwanAni.Play("Ewan_Hit");
+                        break;
+                    case 1:
+                        EwanAni.Play("Ewan_Bad");
+                        break;
+                    case 2:
+                        EwanAni.Play("Ewan_miss");
+                        break;
+                }
+            }
+            
+            
         }
+
         // Update is called once per frame
         void Update()
         {
@@ -153,8 +182,11 @@ namespace PathCreation.Examples
                 if (進度 > 判分範圍[5] && deleteSelf == false)
                 {
                     //離開判定區就變色1208更新
-                    sr.color = Color.red;
+                    sr.color = Color.gray;
                     deleteSelf = true;
+                    //MISS判定+動畫播放改到這_0102
+                    SpriteHitPic.spriteName = "Miss";
+                    顯示特效(2);
                     //miss
                     替身.myNote.RemoveAt(0);
                 }
@@ -170,69 +202,6 @@ namespace PathCreation.Examples
                 return;
             }
 
-            //這次增加判定分數1031
-            if (Input.GetTouch(HitObject.touchID).phase == TouchPhase.Began && 軌道.ToString() == myTouch.軌道.ToString())
-            {
-                if (音符移動狀態 == pathState.入場)
-                {
-                    if (進度 < 判分範圍[0] && 進度 > 判分範圍[6])
-                    {
-                        //Bad
-                        scoreShower.showScore(0);
-                        SpriteHitPic.spriteName = "Bad";
-                        Destroy(gameObject);
-                    }
-
-                    if (進度 >= 判分範圍[0] && 進度 <= 判分範圍[1])
-                    {
-                        //nice
-                        scoreShower.showScore(1);
-                        SpriteHitPic.spriteName = "Nice";
-                        Destroy(gameObject);
-                    }
-
-                    if (進度 > 判分範圍[1] && 進度 <= 判分範圍[2])
-                    {
-                        //perfect
-                        scoreShower.showScore(2);
-                        SpriteHitPic.spriteName = "Perfect";
-                        Destroy(gameObject);
-                    }
-
-                }
-                else if (音符移動狀態 == pathState.離開)
-                {
-                    if (進度 >= 0 && 進度 <= 判分範圍[3])
-                    {
-                        //perfect
-                        scoreShower.showScore(2);
-                        SpriteHitPic.spriteName = "Perfect";
-                        Destroy(gameObject);
-                    }
-
-                    if (進度 > 判分範圍[3] && 進度 <= 判分範圍[4])
-                    {
-                        //Nice
-                        scoreShower.showScore(1);
-                        SpriteHitPic.spriteName = "Nice";
-                        Destroy(gameObject);
-                    }
-
-                    if (進度 > 判分範圍[4] && 進度 <= 判分範圍[5])
-                    {
-                        //bad
-                        scoreShower.showScore(0);
-                        SpriteHitPic.spriteName = "Bad";
-                        Destroy(gameObject);
-                    }
-
-                    if (進度 > 判分範圍[5])
-                    {
-                        //miss
-                    }
-                }
-            }
-
         }
 
         //新增替身降低耗能1208更新
@@ -246,7 +215,7 @@ namespace PathCreation.Examples
                     scoreShower.showScore(0);
                     SpriteHitPic.spriteName = "Bad";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(1);
                     Destroy(gameObject);
                 }
 
@@ -256,11 +225,11 @@ namespace PathCreation.Examples
                     scoreShower.showScore(1);
                     SpriteHitPic.spriteName = "Nice";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(0);
                     Destroy(gameObject);
                     Debug.Log("Yes1");
                 }
-            
+
 
                 if (進度 > 判分範圍[1] && 進度 <= 判分範圍[2])
                 {
@@ -268,11 +237,11 @@ namespace PathCreation.Examples
                     scoreShower.showScore(2);
                     SpriteHitPic.spriteName = "Perfect";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(0);
                     Destroy(gameObject);
                     Debug.Log("Yes2");
                 }
-               
+
             }
             else if (音符移動狀態 == pathState.離開)
             {
@@ -282,22 +251,22 @@ namespace PathCreation.Examples
                     scoreShower.showScore(2);
                     SpriteHitPic.spriteName = "Perfect";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(0);
                     Destroy(gameObject);
                     Debug.Log("Yes3");
                 }
-          
+
                 if (進度 > 判分範圍[3] && 進度 <= 判分範圍[4])
                 {
                     //Nice
                     scoreShower.showScore(1);
                     SpriteHitPic.spriteName = "Nice";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(0);
                     Destroy(gameObject);
                     Debug.Log("Yes4");
                 }
-            
+
 
                 if (進度 > 判分範圍[4] && 進度 <= 判分範圍[5])
                 {
@@ -305,27 +274,22 @@ namespace PathCreation.Examples
                     scoreShower.showScore(0);
                     SpriteHitPic.spriteName = "Bad";
                     替身.myNote.RemoveAt(0);
-                    顯示特效();
+                    顯示特效(1);
                     Destroy(gameObject);
                     Debug.Log("Yes5");
                 }
-            
+
 
                 if (進度 > 判分範圍[5])
                 {
                     替身.myNote.RemoveAt(0);
                     SpriteHitPic.spriteName = "Miss";
-                    //miss
                 }
             }
         }
+    
 
-        void Obj()
-        {
-            //分別
-        }
-
-        public void 軌道Assign(string aa)
+    public void 軌道Assign(string aa)
         {
             switch (aa)
             {

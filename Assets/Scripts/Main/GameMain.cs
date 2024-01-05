@@ -7,12 +7,20 @@ public class GameMain : MonoBehaviour
 {
     public List<int> gameHit = new List<int>();
     public int totalscore;
-    
-
     public Text scoreText;
+    private int perfectCount;
+    private int niceCount;
+    private int badCount;
+    private int missCount;
+
     // Start is called before the first frame update
     void Start()
     {
+        perfectCount = 0;
+        niceCount = 0;
+        badCount = 0;
+        missCount = 0;
+        
         totalscore = 0;
         UpdateScoreDisplay(); // 初始顯示分數
     }
@@ -32,14 +40,21 @@ public class GameMain : MonoBehaviour
             case 0:
                 // bad
                 totalscore += 400;
+                badCount++;
                 break;
             case 1:
                 // nice
                 totalscore += 550;
+                niceCount++;
                 break;
             case 2:
                 // perfect
                 totalscore += 700;
+                perfectCount++;
+                break;
+            case 3:
+                //Miss
+                missCount++;
                 break;
         }
 
@@ -47,7 +62,8 @@ public class GameMain : MonoBehaviour
         SaveScore(); // 更新顯示分數
     }
 
-    public void CountScore()
+    /*
+     public void CountScore()
     {
         totalscore = 0;
         foreach (int noteNow in gameHit)
@@ -67,13 +83,37 @@ public class GameMain : MonoBehaviour
                     break;
             }
         }
+        */
 
-        UpdateScoreDisplay();
-        SaveScore(); // 更新顯示分數
+
+    public string GetRank()
+    {
+        if (totalscore >= 79800)
+        {
+            return "S";
+        }
+        else if (totalscore >= 63840)
+        {
+            return "A";
+        }
+        else if (totalscore >= 47880)
+        {
+            return "B";
+        }
+        else
+        {
+            return "C";
+        }
     }
+
     public void SaveScore()
     {
         PlayerPrefs.SetInt("FinalScore", totalscore);
+        PlayerPrefs.SetInt("PerfectCount", perfectCount);
+        PlayerPrefs.SetInt("NiceCount", niceCount);
+        PlayerPrefs.SetInt("BadCount", badCount);
+        PlayerPrefs.SetInt("MissCount", missCount);
         PlayerPrefs.Save();
     }
+
 }

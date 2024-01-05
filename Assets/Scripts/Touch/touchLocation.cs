@@ -7,7 +7,7 @@ public class touchLocation
 {
     public int touchId;
     //public GameObject circle;
-
+    public GameObject[] 點擊方塊;
     public bool registed;
     //存取打擊範圍資料_1222
     public StageRangeCreator 本關音軌資料;
