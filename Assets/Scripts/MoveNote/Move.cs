@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.U2D;
 using DG.Tweening;
 
 namespace PathCreation.Examples
@@ -182,9 +178,10 @@ namespace PathCreation.Examples
                 if (進度 > 判分範圍[5] && deleteSelf == false)
                 {
                     //離開判定區就變色1208更新
-                    sr.color = Color.gray;
+                    sr.color = Color.red;
                     deleteSelf = true;
                     //MISS判定+動畫播放改到這_0102
+                    scoreShower.showScore(3);
                     SpriteHitPic.spriteName = "Miss";
                     顯示特效(2);
                     //miss

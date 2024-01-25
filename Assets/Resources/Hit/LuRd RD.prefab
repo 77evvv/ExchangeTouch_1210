@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partical: {fileID: 3455283116201734407}
   sr: {fileID: 0}
-  Ewan: {fileID: 766485560284090526, guid: 22816bf43d9ebd54e8c4187b3206af6d, type: 3}
+  EwanAni: {fileID: 0}
   "\u66FF\u8EAB": {fileID: 0}
   HitObject: {fileID: 0}
   "\u5224\u5206\u7BC4\u570D":

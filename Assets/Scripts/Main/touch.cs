@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TouchEvent_handler;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static TouchEvent_handler.EventDetect;
-using UnityEngine.SceneManagement;
 
 public class touch : MonoBehaviour
 {

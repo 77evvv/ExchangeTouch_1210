@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //此程式是把四軌音軌位置確定出來，存取資料
 [CreateAssetMenu(fileName = "音軌位置資料", menuName = "新建音軌資料",order = 1)]

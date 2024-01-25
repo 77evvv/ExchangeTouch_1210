@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/S1.unity
     guid: a4b374305829bc94a90f274265b4801d
   - enabled: 0
-    path: Assets/Scenes/Lv0.unity
+    path: Assets/Scenes/Lv01_Hit.unity
     guid: 23909835c490e1c4abc112c5a29d96ed
   - enabled: 0
-    path: Assets/Scenes/StopPlane.unity
-    guid: 91f99431618dc324eae888cc644668ae
-  - enabled: 0
-    path: Assets/Scenes/SceneS2_1221.unity
+    path: Assets/Scenes/SceneS2.unity
     guid: 2c80252ed8c153e4a87643078457dfc3
   m_configObjects: {}

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class BtnControl : MonoBehaviour
@@ -35,6 +32,10 @@ public class BtnControl : MonoBehaviour
     public void Lv1_Scene()
     {
         SceneManager.LoadScene("S1");
+    }
+    public void Lv2_Scene()
+    {
+        SceneManager.LoadScene("SceneS2");
     }
     public void AgainLv1()
     {

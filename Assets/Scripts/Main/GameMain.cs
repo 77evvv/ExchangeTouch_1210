@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,7 @@ public class GameMain : MonoBehaviour
         niceCount = 0;
         badCount = 0;
         missCount = 0;
-        
+
         totalscore = 0;
         UpdateScoreDisplay(); // 初始顯示分數
     }
@@ -84,29 +83,10 @@ public class GameMain : MonoBehaviour
             }
         }
         */
+    
+    
 
-
-    public string GetRank()
-    {
-        if (totalscore >= 79800)
-        {
-            return "S";
-        }
-        else if (totalscore >= 63840)
-        {
-            return "A";
-        }
-        else if (totalscore >= 47880)
-        {
-            return "B";
-        }
-        else
-        {
-            return "C";
-        }
-    }
-
-    public void SaveScore()
+        public void SaveScore()
     {
         PlayerPrefs.SetInt("FinalScore", totalscore);
         PlayerPrefs.SetInt("PerfectCount", perfectCount);

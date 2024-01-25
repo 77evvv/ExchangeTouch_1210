@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using PathCreation;
 using PathCreation.Examples;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
