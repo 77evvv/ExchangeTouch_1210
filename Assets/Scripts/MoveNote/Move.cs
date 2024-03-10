@@ -178,7 +178,7 @@ namespace PathCreation.Examples
                 if (進度 > 判分範圍[5] && deleteSelf == false)
                 {
                     //離開判定區就變色1208更新
-                    sr.color = Color.red;
+                    sr.color = Color.gray;
                     deleteSelf = true;
                     //MISS判定+動畫播放改到這_0102
                     scoreShower.showScore(3);

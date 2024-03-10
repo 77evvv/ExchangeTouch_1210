@@ -11,6 +11,7 @@ public class GameMain : MonoBehaviour
     private int niceCount;
     private int badCount;
     private int missCount;
+    private int combeoCount;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class GameMain : MonoBehaviour
         niceCount = 0;
         badCount = 0;
         missCount = 0;
-
+        combeoCount = 0;
         totalscore = 0;
         UpdateScoreDisplay(); // 初始顯示分數
     }

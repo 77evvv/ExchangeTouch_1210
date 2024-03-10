@@ -28,18 +28,18 @@ public class ScoreFinallyLv2 : MonoBehaviour
         string formattedScore = finalScore.ToString("D9");
         finalScoreText.text = formattedScore;
 
-        // 显示计数器的值
+        // 显示计数器的值，並進行格式化
         int perfectCount = PlayerPrefs.GetInt("PerfectCount", 0);
-        Perfect.text = perfectCount.ToString();
+        Perfect.text = perfectCount.ToString("D3"); // 格式化為固定寬度 3 位數，不足的位數補 0
 
         int niceCount = PlayerPrefs.GetInt("NiceCount", 0);
-        Nice.text = niceCount.ToString();
+        Nice.text = niceCount.ToString("D3"); // 格式化為固定寬度 3 位數，不足的位數補 0
 
         int badCount = PlayerPrefs.GetInt("BadCount", 0);
-        Bad.text = badCount.ToString();
+        Bad.text = badCount.ToString("D3"); // 格式化為固定寬度 3 位數，不足的位數補 0
 
         int missCount = PlayerPrefs.GetInt("MissCount", 0);
-        Miss.text = missCount.ToString();
+        Miss.text = missCount.ToString("D3"); // 格式化為固定寬度 3 位數，不足的位數補 0
 
         // 在 Start 方法中调用 GetRank 方法，根据 finalScoreText 的文本内容激活相应的 Image
         GetRank();

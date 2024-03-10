@@ -69,4 +69,31 @@ public class GamePause : MonoBehaviour
         // 在这里重新设置音频，例如停止和播放音频
         AudioListener.pause = false; // 恢复音频播放
     }
+
+    public void ReLevel3()
+    {
+        // 获取 S2 场景的名称
+        string s3SceneName = "SceneS3";
+
+        // 重新加载 S2 场景
+        SceneManager.LoadScene(s3SceneName);
+        Stopplane.SetActive(false);
+        Time.timeScale = 1f; // 确保时间尺度正常
+
+        // 在这里重新设置音频，例如停止和播放音频
+        AudioListener.pause = false; // 恢复音频播放
+    }
+    public void ReLevel4()
+    {
+        // 获取 S2 场景的名称
+        string s4SceneName = "SceneS4";
+
+        // 重新加载 S2 场景
+        SceneManager.LoadScene(s4SceneName);
+        Stopplane.SetActive(false);
+        Time.timeScale = 1f; // 确保时间尺度正常
+
+        // 在这里重新设置音频，例如停止和播放音频
+        AudioListener.pause = false; // 恢复音频播放
+    }
 }
