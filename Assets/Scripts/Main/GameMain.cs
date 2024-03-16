@@ -4,24 +4,32 @@ using UnityEngine.UI;
 
 public class GameMain : MonoBehaviour
 {
-    public List<int> gameHit = new List<int>();
+     public List<int> gameHit = new List<int>();
     public int totalscore;
     public Text scoreText;
     private int perfectCount;
     private int niceCount;
     private int badCount;
     private int missCount;
-    private int combeoCount;
+    public int MBBcount;
+    public Animator bossAni;
+    private bool isAttacking = false;
+
+    // 受伤的 Boss 名称
+    public string bossHurtAnimationName = "Lv1BossAttack";
+    // 呼吸的 Boss 名称
+    public string bossBreathAnimationName = "LV1BossBreath";
 
     // Start is called before the first frame update
     void Start()
     {
+        bossAni = GameObject.Find(bossBreathAnimationName).GetComponent<Animator>();
         perfectCount = 0;
         niceCount = 0;
         badCount = 0;
         missCount = 0;
-        combeoCount = 0;
         totalscore = 0;
+        MBBcount = 0;
         UpdateScoreDisplay(); // 初始顯示分數
     }
 
@@ -40,17 +48,22 @@ public class GameMain : MonoBehaviour
             case 0:
                 // bad
                 totalscore += 400;
+                MBBcount++;
                 badCount++;
                 break;
             case 1:
                 // nice
                 totalscore += 550;
+                MBBcount++;
                 niceCount++;
+                BossAttacked(true, bossHurtAnimationName);
                 break;
             case 2:
                 // perfect
                 totalscore += 700;
+                MBBcount++;
                 perfectCount++;
+                BossAttacked(true, bossHurtAnimationName);
                 break;
             case 3:
                 //Miss
@@ -62,32 +75,36 @@ public class GameMain : MonoBehaviour
         SaveScore(); // 更新顯示分數
     }
 
-    /*
-     public void CountScore()
+    public void BossAttacked(bool attacked, string animationName)
     {
-        totalscore = 0;
-        foreach (int noteNow in gameHit)
+        if (attacked)
         {
-            switch (noteNow)
+            int randomValue = Random.Range(50, 101);
+
+            // 当随机值是 5 的倍数时，播放攻击动画
+            if (randomValue % 5 == 0)
             {
-                case 0:
-                    break;
-                case 1:
-                    totalscore += 100;
-                    break;
-                case 2:
-                    totalscore += 200;
-                    break;
-                case 3:
-                    totalscore += 300;
-                    break;
+                PlayAttackAnimation(animationName); // 播放攻击动画
             }
         }
-        */
-    
-    
+        else
+        {
+            // 设置为呼吸动画
+            isAttacking = false;
+            bossAni.Play(animationName);
+        }
+    }
 
-        public void SaveScore()
+    // 播放攻击动画
+    void PlayAttackAnimation(string animationName)
+    {
+        // 设置为攻击状态
+        isAttacking = true;
+        // 播放受伤的 Boss 动画
+        bossAni.Play(animationName);
+    }
+
+    public void SaveScore()
     {
         PlayerPrefs.SetInt("FinalScore", totalscore);
         PlayerPrefs.SetInt("PerfectCount", perfectCount);
@@ -96,5 +113,4 @@ public class GameMain : MonoBehaviour
         PlayerPrefs.SetInt("MissCount", missCount);
         PlayerPrefs.Save();
     }
-
 }

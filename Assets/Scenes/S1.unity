@@ -3985,7 +3985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &852669942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4706,6 +4706,10 @@ MonoBehaviour:
   gameHit: 
   totalscore: 0
   scoreText: {fileID: 1059436029}
+  MBBcount: 0
+  bossAni: {fileID: 1134447124}
+  bossHurtAnimationName: Lv1BossAttack
+  bossBreathAnimationName: LV1BossBreath
 --- !u!4 &994762796
 Transform:
   m_ObjectHideFlags: 0
@@ -5125,6 +5129,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1134447124 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3452686382380587395, guid: 4b6e868e9e6037a48b8225a17dd094c2, type: 3}
+  m_PrefabInstance: {fileID: 532972295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1210848581
 GameObject:
   m_ObjectHideFlags: 0
@@ -6225,7 +6234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1536375069
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8501,7 +8510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2097476411
 MonoBehaviour:
   m_ObjectHideFlags: 0
