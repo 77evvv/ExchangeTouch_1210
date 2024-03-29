@@ -8,7 +8,7 @@ public class SourceWin3 : MonoBehaviour
     {
         planePrefab.SetActive(false); // 初始状态为非激活状态
 
-        float delayInSeconds = 2 * 60 + 13; // 将2分12秒转换为秒数
+        float delayInSeconds = 2 * 60 + 14; // 将2分12秒转换为秒数
         Invoke("SpawnMyPlane", delayInSeconds); // 两分12秒后调用 SpawnMyPlane 方法
     }
 

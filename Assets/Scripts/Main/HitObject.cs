@@ -5,6 +5,7 @@ using PathCreation.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class HitObject : MonoBehaviour
 {
@@ -90,6 +91,8 @@ public class HitObject : MonoBehaviour
     public int debugBool;
 
     public UserData 讀取檔案 = null;
+    
+
 
     //新增生成音符替身以降低效能1208
     public func 替身;
@@ -174,96 +177,102 @@ public class HitObject : MonoBehaviour
 
             }
         }
-
-        if (音符產生方式 == 音符生成.讀取檔案生成 && debugBool != -1)
         {
-            經過時間 += Time.deltaTime;
 
-            if (經過時間 >= song[當前音符] - 音符時差)
+            if (音符產生方式 == 音符生成.讀取檔案生成 && debugBool != -1)
             {
-                number++;
-                debugText.text = number.ToString();
-                //Debug.Log("生成音符");
-                GameObject note = Instantiate(objectPrefab, transform.position, transform.rotation);
-                if ((圖片面向方向 == 圖片方向.左))
-                {
+                經過時間 += Time.deltaTime;
 
-                    note.GetComponent<SpriteRenderer>().sprite = 左側音符[音符總類[當前音符]];
-                }
-                else if (圖片面向方向 == 圖片方向.右)
+                if (經過時間 >= song[當前音符] - 音符時差)
                 {
-                    note.GetComponent<SpriteRenderer>().sprite = 右側音符[音符總類[當前音符]];
+                    number++;
+                    debugText.text = number.ToString();
+                    //Debug.Log("生成音符");
+                    GameObject note = Instantiate(objectPrefab, transform.position, transform.rotation);
+                    if ((圖片面向方向 == 圖片方向.左))
+                    {
+
+                        note.GetComponent<SpriteRenderer>().sprite = 左側音符[音符總類[當前音符]];
+                    }
+                    else if (圖片面向方向 == 圖片方向.右)
+                    {
+                        note.GetComponent<SpriteRenderer>().sprite = 右側音符[音符總類[當前音符]];
+                    }
+
+                    //GameObject note2 = Instantiate(objectPrefab, transform.position, transform.rotation);
+                    Move mScript = note.GetComponent<Move>();
+                    mScript.音符編號 = number;
+                    mScript.本地音符路徑 = 音符路徑右;
+                    mScript.pathOverTime = 音符多快到點;
+                    mScript.本地離開路徑 = 離開路徑;
+                    //把軌道分軌+顯示分數
+                    mScript.軌道Assign(軌道.ToString());
+                    mScript.scoreShower = scoreShower;
+                    mScript.HitObject = this;
+                    mScript.myTouch = myTouch;
+                    /*if (number == 3)  // 假设第60颗音符需要在0.35秒内到达打击点
+                    {
+                        mScript.pathOverTime = 0.3f;
+                    }*/
+                    //設定替身以降低效能1208
+                    替身.myNote.Add(mScript);
+                    mScript.替身 = 替身;
+                    當前音符++;
                 }
 
-                //GameObject note2 = Instantiate(objectPrefab, transform.position, transform.rotation);
-                Move mScript = note.GetComponent<Move>();
-                mScript.音符編號 = number;
-                mScript.本地音符路徑 = 音符路徑右;
-                mScript.pathOverTime = 音符多快到點;
-                mScript.本地離開路徑 = 離開路徑;
-                //把軌道分軌+顯示分數
-                mScript.軌道Assign(軌道.ToString());
-                mScript.scoreShower = scoreShower;
-                mScript.HitObject = this;
-                mScript.myTouch = myTouch;
-                //設定替身以降低效能1208
-                替身.myNote.Add(mScript);
-                mScript.替身 = 替身;
-                當前音符++;
+                if (當前音符 >= song.Count)
+                {
+                    音符產生方式 = 音符生成.所有音符已生成完;
+                    Debug.Log("結束生成");
+                    return;
+                }
+            }
+        }
+
+        void Update()
+        {
+
+            if (waitTime <= SecPerBeat)
+            {
+                waitTime += Time.deltaTime;
+
             }
 
-            if (當前音符 >= song.Count)
+            if (Json狀態 == callJson.呼叫存檔)
             {
-                音符產生方式 = 音符生成.所有音符已生成完;
-                Debug.Log("結束生成");
-                return;
+                Json狀態 = callJson.待機;
+                UserData data = new UserData
+                {
+                    moments = song,
+                    noteType = 音符總類,
+                };
+                Debug.Log("傳送資料");
+                //接收資料
+                JsonWrite.WritingJson(data, Application.dataPath + 存檔路徑 + 檔案名字);
+
             }
-        }
-    }
 
-    void Update()
-    {
-
-        if (waitTime <= SecPerBeat)
-        {
-            waitTime += Time.deltaTime;
-
-        }
-
-        if (Json狀態 == callJson.呼叫存檔)
-        {
-            Json狀態 = callJson.待機;
-            UserData data = new UserData
+            if (Json狀態 == callJson.呼叫讀檔)
             {
-                moments = song,
-                noteType = 音符總類,
-            };
-            Debug.Log("傳送資料");
-            //接收資料
-            JsonWrite.WritingJson(data, Application.dataPath + 存檔路徑 + 檔案名字);
+                Json狀態 = callJson.待機;
+            }
 
         }
 
-        if (Json狀態 == callJson.呼叫讀檔)
+        // 獲取平均音量值
+        float GetAverageVolume()
         {
-            Json狀態 = callJson.待機;
+            float[] samples = new float[256];
+            audioSource.GetOutputData(samples, 0);
+
+            float sum = 1f;
+            for (int i = 0; i < samples.Length; i++)
+            {
+                sum += Mathf.Abs(samples[i]);
+            }
+
+            return sum / samples.Length;
         }
 
     }
-
-    // 獲取平均音量值
-    float GetAverageVolume()
-    {
-        float[] samples = new float[256];
-        audioSource.GetOutputData(samples, 0);
-
-        float sum = 1f;
-        for (int i = 0; i < samples.Length; i++)
-        {
-            sum += Mathf.Abs(samples[i]);
-        }
-
-        return sum / samples.Length;
-    }
-    
 }

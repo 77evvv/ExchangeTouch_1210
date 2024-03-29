@@ -9,7 +9,7 @@ public class multipeTouch : MonoBehaviour
         public List<touchLocation> touches = new List<touchLocation>();
         public List<func> noteTrack = new List<func>();
         
-        private const float swipeThreshold = 150f; // 滑动阈值
+        private const float swipeThreshold = 200f; // 滑动阈值
         private Vector2 initialTouchPos; // 初始触摸位置
 
         //沒有使用了 public LayerMask 圖層;
