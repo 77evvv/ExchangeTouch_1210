@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class multipleTouch : MonoBehaviour
 {
     public GameObject circle;
-
+   
     public List<touchLocation> touches = new List<touchLocation>();
 
     public Text DebugEnd;

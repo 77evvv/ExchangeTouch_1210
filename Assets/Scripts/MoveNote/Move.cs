@@ -194,10 +194,7 @@ namespace PathCreation.Examples
             Vector3 Rv = new Vector3(1, 0, 0);
             Vector3 Sv = new Vector3(0, 0, 0);
             return;
-            if (HitObject.touchID < 0)
-            {
-                return;
-            }
+            
 
         }
 

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GamePause : MonoBehaviour
 {
     // Start is called before the first frame update
-    private bool isPaused = false;
+    private bool isPaused;
     public GameObject Stopplane;
 
     void Update()
@@ -45,7 +46,7 @@ public class GamePause : MonoBehaviour
     public void ReLevel1()
     {
         // 获取 S1 场景的名称
-        string s1SceneName = "S1";
+        string s1SceneName = "SceneS1";
 
         // 重新加载 S1 场景
         SceneManager.LoadScene(s1SceneName);
@@ -90,6 +91,45 @@ public class GamePause : MonoBehaviour
 
         // 重新加载 S2 场景
         SceneManager.LoadScene(s4SceneName);
+        Stopplane.SetActive(false);
+        Time.timeScale = 1f; // 确保时间尺度正常
+
+        // 在这里重新设置音频，例如停止和播放音频
+        AudioListener.pause = false; // 恢复音频播放
+    }
+    public void Opening()
+    {
+        // 获取 S2 场景的名称
+        string OP = "Opeing0415";
+
+        // 重新加载 S2 场景
+        SceneManager.LoadScene(OP);
+        Stopplane.SetActive(false);
+        Time.timeScale = 1f; // 确保时间尺度正常
+
+        // 在这里重新设置音频，例如停止和播放音频
+        AudioListener.pause = false; // 恢复音频播放
+    }
+    public void Learn01()
+    {
+        // 获取 S1 场景的名称
+        string Learn01Name = "SceneS01";
+
+        // 重新加载 S1 场景
+        SceneManager.LoadScene(Learn01Name);
+        Stopplane.SetActive(false);
+        Time.timeScale = 1f; // 确保时间尺度正常
+
+        // 在这里重新设置音频，例如停止和播放音频
+        AudioListener.pause = false; // 恢复音频播放
+    }
+    public void Learn02()
+    {
+        // 获取 S1 场景的名称
+        string Learn02Name = "SceneS02";
+
+        // 重新加载 S1 场景
+        SceneManager.LoadScene(Learn02Name);
         Stopplane.SetActive(false);
         Time.timeScale = 1f; // 确保时间尺度正常
 

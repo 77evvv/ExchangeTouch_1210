@@ -15,6 +15,7 @@ public class UserData1
 
 public class GameMain : MonoBehaviour
 {
+    public StageRangeCreator 本關音軌資料;
     // 游戏中的击中列表和总分数
     public List<int> gameHit = new List<int>();
     public int totalscore;
@@ -30,7 +31,7 @@ public class GameMain : MonoBehaviour
 
     // Boss 相关
     public Animator bossAni;
-    private float attackDelayTimer = 0f; // 攻击延迟计时器
+    //private float attackDelayTimer = 0f; // 攻击延迟计时器
     private bool canAttack = false; // 是否可以攻击;
     public string bossHurtAnimationName = "Lv1BossAttack";
     public string bossBreathAnimationName = "LV1BossBreath";
@@ -46,6 +47,10 @@ public class GameMain : MonoBehaviour
     // 游戏开始时初始化相关变量
     void Start()
     {
+        //因為腳本看起來像靜態 //0419修改此腳本，修改抓不打擊點到位子的問題
+        StaticValueGM.localLevelGM = this;
+        touchLocation.本關音軌資料 = 本關音軌資料;
+        touchLocation.loadComplete = false;
         perfectCount = 0;
         niceCount = 0;
         badCount = 0;
@@ -67,7 +72,7 @@ public class GameMain : MonoBehaviour
         }
         else
         {
-            Debug.Log("Boss GameObject not found.");
+            //Debug.Log("Boss GameObject not found.");
         }
 
         Invoke("EnableAttack", 20f); // 在游戏开始后 20 秒后调用 EnableAttack 方法
@@ -155,15 +160,15 @@ public class GameMain : MonoBehaviour
         scoreData.totalScore = totalscore;
 
         // 将 UserData 对象转换为 JSON 格式的字符串
-        string json = JsonUtility.ToJson(scoreData);
+        //string json = JsonUtility.ToJson(scoreData);
 
         // 构建存档路径和文件名
-        string filePath = "Assets/Resources/" + levelKey + "ScoreData.json";
+        //string filePath = "Assets/Resources/" + levelKey + "ScoreData.json";
 
         // 将 JSON 字符串写入文件
-        System.IO.File.WriteAllText(filePath, json);
+        //System.IO.File.WriteAllText(filePath, json);
 
-        Debug.Log("JSON 文件保存成功：" + filePath);
+        //Debug.Log("JSON 文件保存成功：" + filePath);
     }
 
     // 显示结算画面的方法

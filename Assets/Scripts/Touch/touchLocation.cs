@@ -7,9 +7,11 @@ public class touchLocation
     public int touchId;
     //public GameObject circle;
     public GameObject[] 點擊方塊;
+    public static bool loadComplete;
     public bool registed;
     //存取打擊範圍資料_1222
-    public StageRangeCreator 本關音軌資料;
+    public static StageRangeCreator 本關音軌資料;
+    
     public List<List<float>> 音軌範圍 = new List<List<float>>();
     public List<float> 左1清單= new List<float>();
     public List<float> 左2清單= new List<float>();
@@ -23,39 +25,53 @@ public class touchLocation
         circle = newCircle;
     }
     */
+    
     public touchLocation(int newTouchId,GameObject circle,List<func> noteTrack)
     {
         if (本關音軌資料 == null)
         {
-            Debug.Log("try load");
-            本關音軌資料 = Resources.Load<StageRangeCreator>("四軌資料");
-            Debug.Log(本關音軌資料.name);
-            
-            
-            foreach (var 現在數值 in 本關音軌資料.L1)
-            {
-                左1清單.Add(現在數值);
-            }
-
-            foreach (float 現在數值 in 本關音軌資料.L2)
-            {
-                左2清單.Add(現在數值);
-            }
-            foreach (float 現在數值 in 本關音軌資料.R1)
-            {
-                右1清單.Add(現在數值);
-            }
-            foreach (float 現在數值 in 本關音軌資料.R2)
-            {
-                右2清單.Add(現在數值);
-            }
-            //順序很重要
-            音軌範圍.Add(左1清單);//0
-            音軌範圍.Add(左2清單);//1
-            音軌範圍.Add(右1清單);//2
-            音軌範圍.Add(右2清單);//3
+            Debug.Log("錯誤 無資料");
+            return;
         }
-        GameObject temp;
+        
+        Debug.Log("try load");
+        Debug.Log(本關音軌資料.name);
+            
+            
+        foreach (var 現在數值 in 本關音軌資料.L1)
+        {
+            左1清單.Add(現在數值);
+        }
+
+        foreach (float 現在數值 in 本關音軌資料.L2)
+        {
+            左2清單.Add(現在數值);
+        }
+        foreach (float 現在數值 in 本關音軌資料.R1)
+        {
+            右1清單.Add(現在數值);
+        }
+        foreach (float 現在數值 in 本關音軌資料.R2)
+        {
+            右2清單.Add(現在數值);
+        }
+        //順序很重要
+        音軌範圍.Add(左1清單);//0
+        音軌範圍.Add(左2清單);//1
+        音軌範圍.Add(右1清單);//2
+        音軌範圍.Add(右2清單);//3
+        //列出是否有有導入設定的範圍裡
+        foreach (var tempList in 音軌範圍)
+        {
+            foreach (var VARIABLE in tempList)
+            {
+                Debug.Log($"數值 = {VARIABLE}");
+            }
+        }
+        Debug.Log(音軌範圍.Count);
+
+        
+        //GameObject temp;
         touchId = newTouchId;
         //Debug.Log("dd");
         if (registed == false)

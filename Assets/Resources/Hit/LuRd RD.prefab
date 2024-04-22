@@ -143,13 +143,14 @@ MonoBehaviour:
   "\u66FF\u8EAB": {fileID: 0}
   HitObject: {fileID: 0}
   "\u5224\u5206\u7BC4\u570D":
-  - 0.905
-  - 0.952
+  - 0.9
+  - 0.95
   - 1
   - 0.054
   - 0.108
   - 0.182
-  - 0.868
+  - 0.86
+  - 0.86
   myTouch: {fileID: 0}
   "\u8ECC\u9053": 0
   "\u97F3\u7B26\u7DE8\u865F": 0

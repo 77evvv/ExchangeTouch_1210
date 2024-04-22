@@ -9,7 +9,7 @@ public class Lv0HitOver : MonoBehaviour
 
     public GameObject planePrefab; // 飞机的预制体
 
-    private bool hasSpawnedPlane = false; // 用于跟踪飞机是否已生成
+    //private bool hasSpawnedPlane = false; // 用于跟踪飞机是否已生成
 
     void Start()
     {

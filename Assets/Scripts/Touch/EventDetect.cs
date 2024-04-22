@@ -58,7 +58,7 @@ public class EventDetect : MonoBehaviour
                             intervals = oldTime - begainTime;
                             Hold();
                             return new Vector3(0, 0, -100);
-                            break;
+                            //break;
 
                     }  
                 }
