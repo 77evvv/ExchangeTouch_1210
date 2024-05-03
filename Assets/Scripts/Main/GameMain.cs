@@ -14,7 +14,7 @@ public class UserData1
 }
 
 public class GameMain : MonoBehaviour
-{
+{   //0419更改判定區觸控問題
     public StageRangeCreator 本關音軌資料;
     // 游戏中的击中列表和总分数
     public List<int> gameHit = new List<int>();
@@ -28,6 +28,7 @@ public class GameMain : MonoBehaviour
     private int niceCount;
     private int badCount;
     private int missCount;
+    
 
     // Boss 相关
     public Animator bossAni;
@@ -88,6 +89,7 @@ public class GameMain : MonoBehaviour
     {
         string formattedScore = totalscore.ToString("D9");
         scoreText.text = formattedScore;
+        
     }
 
     // 处理击中事件，并更新分数和计数器

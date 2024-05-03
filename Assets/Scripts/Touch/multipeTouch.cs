@@ -9,16 +9,24 @@ public class multipeTouch : MonoBehaviour
         public List<touchLocation> touches = new List<touchLocation>();
         public List<func> noteTrack = new List<func>();
         
-        private const float swipeThreshold = 200f; // 滑动阈值
+        public float swipeThreshold = 200f; // 滑动阈值
         private Vector2 initialTouchPos; // 初始触摸位置
-
+        public TouchSharedValue[] touchValue;
+        
+        [System.Serializable]
+        public class TouchSharedValue
+        {
+            
+            public bool fakeSwipe;
+            public Vector2 initialTouchPos;
+        }
         //沒有使用了 public LayerMask 圖層;
 
-        public void Start()
+        void Start()
         {
             
         }
-
+        
         void Update()
         {
             for (int i = 0; i < Input.touchCount; i++)
@@ -26,8 +34,10 @@ public class multipeTouch : MonoBehaviour
                 Touch t = Input.GetTouch(i);
                 if (t.phase == TouchPhase.Began)
                 {
-                    //Debug.Log("touch began");
-                    touches.Add(new touchLocation(t.fingerId, tempCircle, noteTrack));
+                    touchValue[i].fakeSwipe = false;
+                    touchValue[i].initialTouchPos = t.position;
+                    Debug.Log("touch began");
+                    touches.Add(new touchLocation(t.fingerId, tempCircle, noteTrack,0));
                     //touches.Add(new touchLocation(t.fingerId, creatCircle(t)));
                 }
                 else if (t.phase == TouchPhase.Ended)
@@ -38,25 +48,38 @@ public class multipeTouch : MonoBehaviour
                     
                     //Destroy(thisTouch.circle);
                     touches.RemoveAt(touches.IndexOf(thisTouch));
+                    touchValue[i].fakeSwipe = false;
                 }
                 else if (t.phase == TouchPhase.Moved)
                 {
+                    
                     Vector2 currentTouchPos = t.position;
-                    float swipeDistance = currentTouchPos.x - initialTouchPos.x;
-
+                    float swipeDistance = currentTouchPos.x - touchValue[i].initialTouchPos.x;
+                    
                     // 判断左滑或右滑
-                    if (Mathf.Abs(swipeDistance) > swipeThreshold)
+                    if (Mathf.Abs(swipeDistance) > swipeThreshold && touchValue[i].fakeSwipe == false)
                     {
+                        //Debug.Log($"距離 = {swipeDistance}");
+                        touchValue[i].fakeSwipe = true;
                         if (swipeDistance > 0)
                         {
+                            touches.Add(new touchLocation(t.fingerId, tempCircle, noteTrack,1));
+                            touchLocation thisTouch = touches.Find(touchLocation => touchLocation.touchId == t.fingerId);
+                            
                             Debug.Log("Right Swipe");
+                            touches.RemoveAt(touches.IndexOf(thisTouch));
                             // 执行右滑操作，例如触发角色状态改变等
                         }
                         else
                         {
+                            touches.Add(new touchLocation(t.fingerId, tempCircle, noteTrack,2));
+                            touchLocation thisTouch = touches.Find(touchLocation => touchLocation.touchId == t.fingerId);
+                            
                             Debug.Log("Left Swipe");
+                            touches.RemoveAt(touches.IndexOf(thisTouch));
                             // 执行左滑操作，例如触发角色状态改变等
                         }
+                        
                     }
                 }
                 

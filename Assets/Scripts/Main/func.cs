@@ -13,14 +13,14 @@ public class func : MonoBehaviour
     }
 
     //此檔案為測試觸控是否有被偵測到1208
-    public void 嘗試擊中音符()
+    public void 嘗試擊中音符(int type)
     {
         //0102按下打擊區播放打擊區animator
         顯示方塊.GetComponent<Animator>().Play("顯示方塊");
         if (myNote.Count != 0)
         {
-            //Debug.Log("不是空的");
-            myNote[0].detectNote();
+            Debug.Log("不是空的");
+            myNote[0].detectNote(type);
         }
         else
         {

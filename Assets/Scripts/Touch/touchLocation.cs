@@ -26,7 +26,7 @@ public class touchLocation
     }
     */
     
-    public touchLocation(int newTouchId,GameObject circle,List<func> noteTrack)
+    public touchLocation(int newTouchId,GameObject circle,List<func> noteTrack,int type)
     {
         if (本關音軌資料 == null)
         {
@@ -65,7 +65,7 @@ public class touchLocation
         {
             foreach (var VARIABLE in tempList)
             {
-                Debug.Log($"數值 = {VARIABLE}");
+                //Debug.Log($"數值 = {VARIABLE}");
             }
         }
         Debug.Log(音軌範圍.Count);
@@ -84,42 +84,42 @@ public class touchLocation
             if (v.x > 音軌範圍[2][0] && v.x <音軌範圍[2][1])
             {
                 //右側方形觸控範圍
-                Debug.Log("右1X");
+                //Debug.Log("右1X");
                 if (v.y >音軌範圍[2][3] && v.y < 音軌範圍[2][2])
                 {
-                    noteTrack[1].嘗試擊中音符();
-                    Debug.Log("右1Y");
+                    noteTrack[1].嘗試擊中音符(type);
+                    //Debug.Log("右1Y");
                 }
             }
             //右軌2
             if (v.x > 音軌範圍[3][0] && v.x <音軌範圍[3][1])
             {
                 //右側方形觸控範圍
-                Debug.Log("右1X");
+                //Debug.Log("右1X");
                 if (v.y >音軌範圍[3][3] && v.y < 音軌範圍[3][2])
                 {
-                    noteTrack[3].嘗試擊中音符();
-                    Debug.Log("右2Y");
+                    noteTrack[3].嘗試擊中音符(type);
+                    //Debug.Log("右2Y");
                 }
             }
             //左軌1
             if (v.x > 音軌範圍[0][0] && v.x < 音軌範圍[0][1])
             {
-                Debug.Log("左1X");
+                //Debug.Log("左1X");
                 if (v.y > 音軌範圍[0][3] && v.y <音軌範圍[0][2])
                 {
-                    noteTrack[0].嘗試擊中音符();
-                    Debug.Log("左1Y");
+                    noteTrack[0].嘗試擊中音符(type);
+                    //Debug.Log("左1Y");
                 }
             }
             //左軌2
             if (v.x > 音軌範圍[1][0] && v.x < 音軌範圍[1][1])
             {
-                Debug.Log("左2X");
+                //Debug.Log("左2X");
                 if (v.y > 音軌範圍[1][3] && v.y <音軌範圍[1][2])
                 {
-                    noteTrack[2].嘗試擊中音符();
-                    Debug.Log("左2Y");
+                    noteTrack[2].嘗試擊中音符(type);
+                    //Debug.Log("左2Y");
                 }
             }
             

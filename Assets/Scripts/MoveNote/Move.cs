@@ -5,6 +5,15 @@ namespace PathCreation.Examples
 {
     public class Move : MonoBehaviour
     {
+        public bool help;
+        public float lrTimePassed = 0;
+        public LineRenderer lr;
+        public enum 音符種類
+        {
+            點擊,左滑動,右滑動,雙擊
+        }
+
+        public 音符種類 消除方式;
         public GameObject partical;
 
         public SpriteRenderer sr;
@@ -80,8 +89,9 @@ namespace PathCreation.Examples
         // Start is called before the first frame update
         void Start()
         {
-
+            
             sr = GetComponent<SpriteRenderer>();
+            
             //Debug.Log(軌道.ToString());
             經過時間 = 0;
             總體時間 = pathOverTime;
@@ -92,7 +102,7 @@ namespace PathCreation.Examples
             transform.localScale = startScale / 3f;
             GM = GameObject.FindGameObjectWithTag("GM");
             EwanAni = GameObject.Find("EwanPlay").GetComponent<Animator>();
-
+            
             //Debug.Log(GM.name);
         }
 
@@ -133,11 +143,24 @@ namespace PathCreation.Examples
         // Update is called once per frame
         void Update()
         {
+            
             //判定音符該入場時間
             if (本地音符路徑 != null && 音符移動狀態 == pathState.入場)
             {
+                
                 distanceTravelled += pathSpeed * Time.deltaTime;
-
+                
+                if (lr != null)
+                {
+                    lrTimePassed += Time.fixedTime;
+                    if (lrTimePassed >= 0.1f)
+                    {
+                        lrTimePassed = 0;
+                        lr.positionCount++;
+                    }
+                    lr.SetPosition(lr.positionCount-1,this.transform.position);
+                    lr.enabled = true;
+                }
                 if (經過時間 > 總體時間)
                 {
                     經過時間 = 總體時間;
@@ -162,6 +185,23 @@ namespace PathCreation.Examples
             //接換離開路徑
             if (音符移動狀態 == pathState.離開)
             {
+                if (lr != null && help == true)
+                {
+                    if (lrTimePassed < 1)
+                    {
+                        lrTimePassed += Time.fixedDeltaTime;
+                    }
+                    else if(lrTimePassed >=1)
+                    {
+                        lrTimePassed = 1;
+                    }
+                    for (int a = 0; a < lr.positionCount-1; a++)
+                    {
+                        lr.SetPosition(a,Vector3.Lerp(lr.GetPosition(a),lr.GetPosition(a+1),lrTimePassed));
+                    }
+                    return;
+                }
+                
                 distanceTravelled += pathSpeed * Time.deltaTime;
                 transform.position = 本地離開路徑.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
                 進度 = distanceTravelled / 本地離開路徑.path.length;
@@ -170,6 +210,13 @@ namespace PathCreation.Examples
                     Destroy(this.gameObject);
                     //這邊MISS要加+1
                 }
+                
+                if (lr != null)
+                {
+                    lrTimePassed = 0;
+                    help = true;
+                }
+                
             }
 
 
@@ -199,8 +246,66 @@ namespace PathCreation.Examples
         }
 
         //新增替身降低耗能1208更新
-        public void detectNote()
+        public void detectNote(int type)
         {
+            #region 偵測種類
+            
+            Debug.Log($"我的種類:{消除方式} 我的Type = {type}");
+            switch (type)
+            {
+                case 0:
+                    if (消除方式 == 音符種類.點擊)
+                    {
+                        
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    break;
+                case 1:
+                    if (消除方式 == 音符種類.右滑動)
+                    {
+                        Debug.Log("右滑動");
+                    }
+                    else
+                    {
+                        Debug.Log("右???");
+                        return;
+                    }
+                    break;
+                case 2:
+                    if (消除方式 == 音符種類.左滑動)
+                    {
+                        Debug.Log("左滑動");
+                    }
+                    else
+                    {
+                        Debug.Log("左???");
+                        return;
+                    }
+                    break;
+                case 3:
+                    if (消除方式 == 音符種類.雙擊)
+                    {
+                        Debug.Log("雙擊");
+                    }
+                    else
+                    {
+                        Debug.Log("雙擊???");
+                        return;
+                    }
+                    break;
+                default:
+                    Debug.Log("無效種類");
+                    return;
+                    break;
+            }
+            
+
+            #endregion
+            
+            
             if (音符移動狀態 == pathState.入場)
             {
                 if (進度 < 判分範圍[0] && 進度 > 判分範圍[6])
@@ -312,6 +417,33 @@ namespace PathCreation.Examples
                 //Debug.Log("Edge");
             }
         } 
-        
+        public void SetNoteType(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    消除方式 = 音符種類.右滑動;
+                    break;
+                case 2:
+                    消除方式 = 音符種類.左滑動;
+                    break;
+                default:
+                    消除方式 = 音符種類.點擊;
+                    break;
+            }
+        }
+
+        public void SetUpLine()
+        {
+            this.gameObject.transform.position =本地音符路徑.path.GetPointAtDistance(0, endOfPathInstruction);
+            this.gameObject.AddComponent<LineRenderer>();
+            lr = this.GetComponent<LineRenderer>();
+            lr.enabled = false;
+            lr.positionCount = 2;
+            lr.SetPosition(0,本地音符路徑.path.GetPointAtDistance(0, endOfPathInstruction));
+            lr.SetPosition(1,本地音符路徑.path.GetPointAtDistance(0, endOfPathInstruction));
+            
+        }
     }
+    
 }

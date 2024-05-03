@@ -82,10 +82,10 @@ public class ScoreFinallyLv1 : MonoBehaviour
         }
 
         // 保存评级数据到 JSON 文件
-        SaveRankToJSON(rank);
+        //SaveRankToJSON(rank);
     }
 
-    public void SaveRankToJSON(string rank)
+    /*public void SaveRankToJSON(string rank)
     {
         // 创建保存评级数据的对象
         RankData rankData = new RankData();
@@ -105,5 +105,5 @@ public class ScoreFinallyLv1 : MonoBehaviour
         //UnityEditor.AssetDatabase.Refresh();
 
         Debug.Log("JSON RANK文件保存成功：" + fileName);
-    }
+    }*/
 }

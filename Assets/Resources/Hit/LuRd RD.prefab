@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2f1731f72e74ff94b8bf3431674d2354, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e1a2a37998914a41b73b13e502b1b29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.64, y: 1.81}
+  m_Size: {x: 2.39, y: 2.39}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2b3f93a11997a48aefeb66d95dad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "\u6D88\u9664\u65B9\u5F0F": 0
   partical: {fileID: 3455283116201734407}
   sr: {fileID: 0}
   EwanAni: {fileID: 0}

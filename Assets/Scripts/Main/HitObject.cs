@@ -189,18 +189,43 @@ public class HitObject : MonoBehaviour
                     debugText.text = number.ToString();
                     //Debug.Log("生成音符");
                     GameObject note = Instantiate(objectPrefab, transform.position, transform.rotation);
+                    Move mScript = note.GetComponent<Move>();
                     if ((圖片面向方向 == 圖片方向.左))
                     {
-
+                        int type = 0;
+                        //0 點 1 滑
+                        switch (音符總類[當前音符])
+                        {
+                            case 1:
+                                type = 2;
+                                break;
+                            default:
+                                type = 0;
+                                break;
+                        }
+                        mScript.SetNoteType(type);
                         note.GetComponent<SpriteRenderer>().sprite = 左側音符[音符總類[當前音符]];
                     }
                     else if (圖片面向方向 == 圖片方向.右)
                     {
+                        int type = 0;
+                        //0 點 1 滑
+                        switch (音符總類[當前音符])
+                        {
+                            case 1:
+                                type = 1;
+                                break;
+                            default:
+                                type = 0;
+                                break;
+                        }
+                        mScript.SetNoteType(type);
+                        
                         note.GetComponent<SpriteRenderer>().sprite = 右側音符[音符總類[當前音符]];
                     }
 
                     //GameObject note2 = Instantiate(objectPrefab, transform.position, transform.rotation);
-                    Move mScript = note.GetComponent<Move>();
+                    
                     mScript.音符編號 = number;
                     mScript.本地音符路徑 = 音符路徑右;
                     mScript.pathOverTime = 音符多快到點;
