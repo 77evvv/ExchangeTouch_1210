@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(LevelTester))]
+/*[CustomEditor(typeof(LevelTester))]
 public class CustomLevelEditor : Editor
 {
     private LevelTester _levelTester;
@@ -71,4 +71,4 @@ public class CustomLevelEditor : Editor
         }
         
     }
-}
+}*/

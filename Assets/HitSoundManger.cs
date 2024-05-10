@@ -16,7 +16,7 @@ public class HitSoundManger : MonoBehaviour
         }
 
         // 设置音效
-        audioSource.volume = 0.45f;
+        audioSource.volume = 0.35f;
     }
 
     void Update()

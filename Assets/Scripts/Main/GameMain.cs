@@ -14,8 +14,10 @@ public class UserData1
 }
 
 public class GameMain : MonoBehaviour
-{   //0419更改判定區觸控問題
+{
+    //0419更改判定區觸控問題
     public StageRangeCreator 本關音軌資料;
+
     // 游戏中的击中列表和总分数
     public List<int> gameHit = new List<int>();
     public int totalscore;
@@ -28,14 +30,22 @@ public class GameMain : MonoBehaviour
     private int niceCount;
     private int badCount;
     private int missCount;
-    
+    public int PerSC;
+    public int NicSC;
+    public GameObject ComboSC;
+    private int lastHitType = -1; // 上一次打击的类型，-1 表示初始值
+    public GameObject PrefectPartical;
+    public GameObject MissPartical;
+
 
     // Boss 相关
     public Animator bossAni;
+
     //private float attackDelayTimer = 0f; // 攻击延迟计时器
     private bool canAttack = false; // 是否可以攻击;
     public string bossHurtAnimationName = "Lv1BossAttack";
     public string bossBreathAnimationName = "LV1BossBreath";
+    public string bossCombatAnimationName = "";
 
     // 当前关卡名称
     public static string currentLevelName; // 将 currentLevelName 定义为静态属性
@@ -89,33 +99,89 @@ public class GameMain : MonoBehaviour
     {
         string formattedScore = totalscore.ToString("D9");
         scoreText.text = formattedScore;
-        
+
     }
 
-    // 处理击中事件，并更新分数和计数器
+    private int comboCount = 0;
+
     public void showScore(int aa)
     {
+        if (aa == 0)
+        {
+            // 如果是MISS或BAD，重置ComboSC为0，并将comboCount重置为0
+            ComboSC.GetComponent<Text>().text = "0";
+            comboCount = 0;
+            // 重置 PerSC 和 NicSC 为 0
+            PerSC = 0;
+            NicSC = 0;
+            // 如果comboCount小于1，将ComboSC设为不可见
+            ComboSC.SetActive(comboCount >= 1);
+
+            // 在这里添加触发 BOSSCOMBAT 动画的逻辑
+        }
+        else
+        {
+            // 如果不是MISS或BAD，将niceCount和perfectCount相加的值赋给ComboSC
+            int comboValue = PerSC + NicSC;
+            ComboSC.GetComponent<Text>().text = comboValue.ToString();
+
+            // 更新comboCount为niceCount和perfectCount相加的值
+            comboCount = comboValue;
+            // 如果comboCount小于1，将ComboSC设为不可见
+            ComboSC.SetActive(comboCount >= 1);
+        }
+
         switch (aa)
         {
             case 0:
                 totalscore += 400;
                 badCount++;
+                // 在这里将comboCount、PerSC 和 NicSC 重置为0
+                comboCount = 0;
+                PerSC = 0;
+                NicSC = 0;
+                PrefectPartical.SetActive(false);
+                MissPartical.SetActive(false);
                 break;
             case 1:
                 totalscore += 550;
                 niceCount++;
+                NicSC++;
                 BossAttacked(true, bossHurtAnimationName);
+                PrefectPartical.SetActive(false);
+                MissPartical.SetActive(false);
                 break;
-            case 2:
+            case 2: // PERFECT
                 totalscore += 700;
                 perfectCount++;
+                PerSC++;
                 BossAttacked(true, bossHurtAnimationName);
+                if (lastHitType != 2) // 上一次不是 PERFECT，则打开 PrefectPartical
+                {
+                    PrefectPartical.SetActive(true);
+                }
+                MissPartical.SetActive(false); // 关闭 MissPartical
                 break;
-            case 3:
+            case 3: // MISS
                 missCount++;
+                // 其他处理逻辑...
+                PrefectPartical.SetActive(false); // 关闭 PrefectPartical
+                if (lastHitType != 3) // 上一次不是 MISS，则打开 MissPartical
+                {
+                    MissPartical.SetActive(true);
+                }
+                //BOSS被攻擊動作
+                BossAttacked(true, bossCombatAnimationName);
+                break;
+
+            default: // 其他类型，关闭 PrefectPartical 和 MissPartical
+                PrefectPartical.SetActive(false);
+                MissPartical.SetActive(false);
                 break;
         }
 
+        // 更新上一次打击类型
+        lastHitType = aa;
         UpdateScoreDisplay();
         SaveScore();
         // 显示结算画面
@@ -142,8 +208,8 @@ public class GameMain : MonoBehaviour
                 bossAni.Play(animationName);
             }
         }
+        
     }
-
     // 播放 Boss 受伤动画
     void PlayAttackAnimation(string animationName)
     {

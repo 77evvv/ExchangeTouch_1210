@@ -229,6 +229,8 @@ namespace PathCreation.Examples
                     deleteSelf = true;
                     //MISS判定+動畫播放改到這_0102
                     scoreShower.showScore(3);
+                    scoreShower.PerSC = 0;
+                    scoreShower.NicSC = 0;
                     SpriteHitPic.spriteName = "Miss";
                     顯示特效(2);
                     //miss

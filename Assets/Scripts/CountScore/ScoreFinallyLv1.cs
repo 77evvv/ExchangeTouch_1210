@@ -59,22 +59,22 @@ public class ScoreFinallyLv1 : MonoBehaviour
         int finalScore = int.Parse(finalScoreText.text);
         float percentage = ((float)finalScore / 79800f) * 100f;
 
-        string rank = "C"; // 默认为 C 级别
+        //string rank = "C"; // 默认为 C 级别
 
         if (percentage >= 90f)
         {
             imageS.SetActive(true);
-            rank = "S";
+            //rank = "S";
         }
         else if (percentage >= 80f)
         {
             imageA.SetActive(true);
-            rank = "A";
+            //rank = "A";
         }
         else if (percentage >= 70f)
         {
             imageB.SetActive(true);
-            rank = "B";
+            //rank = "B";
         }
         else
         {
